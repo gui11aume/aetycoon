@@ -322,11 +322,17 @@ class PickleProperty(db.Property):
   def get_value_for_datastore(self, model_instance):
     value = self.__get__(model_instance, model_instance.__class__)
     if value is not None:
-      return db.Blob(pickle.dumps(value))
+      # return db.Blob(pickle.dumps(value))
+      # Can do better:
+      return db.Blob(
+            zlib.compress(pickle.dumps(value, pickle.HIGHEST_PROTOCOL),9)
+      )
 
   def make_value_from_datastore(self, value):
     if value is not None:
-      return pickle.loads(str(value))
+      # return pickle.loads(str(value))
+      # Can do better:
+      return pickle.loads(zlib.decompress(str(value)))
 
   def default_value(self):
     """If possible, copy the value passed in the default= keyword argument.
