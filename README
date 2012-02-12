@@ -1,3 +1,4 @@
+-- My fork of aetycoon from https://github.com/Arachnid/aetycoon --
 aetycoon provides a library of useful App Engine datastore property classes.
 
 The property classes included here cover use cases that are too specialized to
